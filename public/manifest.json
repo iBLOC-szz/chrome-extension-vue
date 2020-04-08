@@ -1,0 +1,72 @@
+{
+  "manifest_version": 2,
+  "name": "优大人直播助手",
+  "version": "2.0.2",
+  "default_locale": "zh_CN",
+  "description": "优大人直播助手",
+  "icons": {
+    "16": "image/logo/icon_16@1x.png",
+    "19": "image/logo/icon_19@1x.png",
+    "24": "image/logo/icon_24@1x.png",
+    "32": "image/logo/icon_32@1x.png",
+    "38": "image/logo/icon_38@1x.png",
+    "48": "image/logo/icon_48@1x.png",
+    "128": "image/logo/icon_128@1x.png",
+    "256": "image/logo/icon_256@1x.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "image/logo/icon_16@1x.png",
+      "19": "image/logo/icon_19@1x.png",
+      "24": "image/logo/icon_24@1x.png",
+      "32": "image/logo/icon_32@1x.png",
+      "38": "image/logo/icon_38@1x.png",
+      "48": "image/logo/icon_48@1x.png",
+      "128": "image/logo/icon_128@1x.png",
+      "256": "image/logo/icon_256@1x.png"
+    },
+    "default_title": "优大人直播助手"
+  },
+  "background": {
+    "persistent": true,
+    "page": "html/background.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://liveplatform.taobao.com/live/liveDetail.htm*",
+        "https://liveplatform.taobao.com/live/live%20detail.htm*",
+        "https://liveplatform.taobao.com/live/live_detail.htm*"
+      ],
+      "js": [
+        "js/chunk-common.js",
+        "js/chunk-vendors.js",
+        "js/live.js"
+      ],
+      "css": [
+        "css/chunk-common.css",
+        "css/live.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://*.udaren.com https://*.ibloc.cn https://*.cnzz.com;  object-src 'self'",
+  "permissions": [
+    "activeTab",
+    "cookies",
+    "declarativeContent",
+    "notifications",
+    "storage",
+    "webRequest",
+    "downloads",
+    "*://*.taobao.com/",
+    "*://*.leanapp.cn/",
+    "*://*.ibloc.cn/",
+    "*://*.udaren.com/",
+    "*://*.cnzz.com/",
+    "*://*.mmstat.com/"
+  ],
+  "web_accessible_resources": [
+    "script/live-injected.js"
+  ]
+}
