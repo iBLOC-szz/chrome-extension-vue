@@ -1,27 +1,26 @@
-process.env.VUE_APP_VERSION = require('./package.json').version
+const application = require('./package.json');
+const manifest = require('./public/manifest.json')
+process.env.VUE_APP_NAME = manifest.name
+process.env.VUE_APP_VERSION = application.version
 
 module.exports = {
     filenameHashing: false,
     pages: {
-        background: {
-            entry: 'src/pages/background.ts',
-            template: 'public/html/background.html',
-            filename: 'html/background.html',
-            title: 'Background Page',
-            chunks: ['chunk-vendors', 'chunk-common', 'background']
+    },
+    configureWebpack: {
+        entry: {
+            main: './src/main.ts',
+            background: './src/pages/background.ts',
+            popup: './src/pages/popup.ts',
+            live: './src/pages/live.ts'
         },
-        popup: {
-            entry: 'src/pages/popup.ts',
-            template: 'public/html/popup.html',
-            filename: 'html/popup.html',
-            title: 'Popup Page',
-            chunks: ['chunk-vendors', 'chunk-common', 'popup']
+        output: {
+            jsonpFunction: 'jsonpFunction',
         },
-        live: {
-            entry: 'src/pages/live.ts',
-            filename: 'html/live.html',
-            title: 'Live Contenter',
-            chunks: ['chunk-vendors', 'chunk-common', 'live']
-        }
+        devServer: {
+            disableHostCheck: true, //  新增该配置项
+        },
+        plugins: [
+        ]
     }
 }

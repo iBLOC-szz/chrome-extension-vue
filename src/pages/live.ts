@@ -1,14 +1,12 @@
 import jquery from 'jquery'
 import Vue from 'vue'
-import Live from '../views/live.vue'
+import Live from '../views/live/index.vue'
 import store from "../store";
 import "../plugins/ant-design-vue.ts";
 
 Vue.config.productionTip = false
 
-console.log(process.env.NODE_ENV);
-
-if (process.env.NODE_ENV == 'development') {
+if (window.location.pathname === '/html/live.html') {
 
     new Vue({
         store,
@@ -16,32 +14,28 @@ if (process.env.NODE_ENV == 'development') {
     }).$mount('#app')
 } else {
 
-    window.addEventListener("message", async (event) => {
-        switch (event.data.api) {
-            case 'live':
-                switch(event.data.method) {
-                    case 'put':
-                        // console.log(event.data.params);
-                        store.commit('SET_LIVE', event.data.params.live)
-                        break;
-                    default:
-                        break
-                }
-                break;
-            default:
-                break
-        }
-    });
-
     setInterval(() => {
 
-        const injectedScript = document.createElement('script');
-        injectedScript.setAttribute('type', 'text/javascript');
-        injectedScript.src = chrome.extension.getURL('script/live-injected.js');
-        injectedScript.onload = () => {
-            injectedScript.parentNode?.removeChild(injectedScript);
+        let live = {
+            id: window.pageData.liveDO.id,
+            topic: window.pageData.liveDO.topic,
+            channelId: window.pageData.liveDO.liveChannelId,
+            roomType: window.pageData.liveDO.roomType,
+            status: window.pageData.liveDO.status,
+            anchor: {
+                id: window.pageData.liveDO.accountId
+            }
         };
-        document.head.appendChild(injectedScript)
+
+        let liveJsonString = localStorage.getItem('LIVE');
+        if (liveJsonString) {
+            const oldLive: any = JSON.parse(liveJsonString);
+            if (oldLive.id === live.id) {
+                live = Object.assign(oldLive, live);
+            }
+        }
+
+        store.commit('SET_LIVE', live);
 
         const udarenLiveHelper = document.getElementById('udaren-live-helper');
 
@@ -49,11 +43,6 @@ if (process.env.NODE_ENV == 'development') {
 
             const root = document.createElement("div");
             root.id = "udaren-live-helper"
-
-            // const mainBody = document.getElementsByClassName('next-col next-col-16');
-            // const interactiveList = document.getElementsByClassName('interactive-list');
-
-            // mainBody[0].insertBefore(root, interactiveList[0]);
 
             jquery('.data-board').after(root)
 
@@ -66,7 +55,5 @@ if (process.env.NODE_ENV == 'development') {
                 render: h => h(Live)
             }).$mount(content)
         }
-
-    }, 1 * 1000);
-
+    }, 3 * 1000);
 }
