@@ -3,6 +3,7 @@
   "name": "优大人直播助手",
   "version": "2.1.0",
   "description": "优大人直播助手",
+  "default_locale": "zh_CN",
   "icons": {
     "16": "image/logo/icon_16@1x.png",
     "19": "image/logo/icon_19@1x.png",
