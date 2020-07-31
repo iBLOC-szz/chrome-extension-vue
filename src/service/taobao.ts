@@ -59,14 +59,15 @@ class TaobaoService {
         })
     }
 
-    async actionRequest(req: ActionRequest) {
+    async actionRequest(request: ActionRequest) {
 
-        let {api, method, params, data} = req
-
-        params = {
+        const api = request.api
+        const method = request.method
+        const params = {
             api,
-            ...params
+            ...request.params
         };
+        const data = request.data
 
         const response = await axios({
             baseURL: 'https://liveplatform.taobao.com',
@@ -125,7 +126,7 @@ class TaobaoService {
             data: qs.stringify(data)
         });
 
-        let result = response.data;
+        const result = response.data;
 
         if (!result.isSuccess) {
             throw new Error(result.message)
@@ -377,7 +378,7 @@ class TaobaoService {
 
     async getActivities() {
 
-        let request = new JsRequest();
+        const request = new JsRequest();
 
         request.jsv = "2.3.22";
         request.api = "mtop.taobao.couponMtopReadService.findShopBonusActivitys";
@@ -411,7 +412,7 @@ class TaobaoService {
             }
         };
 
-        let material = await this.addMaterial(materialParam);
+        const material = await this.addMaterial(materialParam);
 
         const data = {
             parentId: liveId,
@@ -437,7 +438,7 @@ class TaobaoService {
             }
         };
 
-        let material = await this.addMaterial(materialParam);
+        const material = await this.addMaterial(materialParam);
 
         const data = {
             parentId: liveId,
@@ -448,6 +449,24 @@ class TaobaoService {
         };
 
         await this.publishContentFeed(data)
+    }
+
+    addLive = async (live: any) => {
+        const tbToken = await this.getTbToken();
+        const request = new ActionRequest();
+
+        request.api = 'publish_pre_live';
+        request.method = 'post';
+        request.params = {
+            _tb_token_: tbToken,
+            _input_charset: 'utf-8'
+        }
+        request.data = live;
+
+        const result = await this.actionRequest(request);
+
+        return result.model
+
     }
 }
 

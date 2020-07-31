@@ -1,7 +1,7 @@
 const environment = process.env.NODE_ENV;
 const currentLocation = window.location;
 const domain = process.env.VUE_APP_DOMAIN;
-const version = '1.0.0';
+const version = '1.0.1';
 
 function injectScript(script: any): Promise<boolean> {
 
@@ -70,6 +70,10 @@ async function init(environment: string = 'development') {
                     case '/live/live_detail.htm':
                         await injectScript({ type: 'text/javascript', src: `${process.env.VUE_APP_DOMAIN}/js/live.js` });
                         break;
+                    case '/html/add-live.html':
+                    case '/live/addLive.htm':
+                        await injectScript({ type: 'text/javascript', src: `${process.env.VUE_APP_DOMAIN}/js/add-live.js` });
+                        break;
                     default:
                         break;
                 }
@@ -93,6 +97,12 @@ async function init(environment: string = 'development') {
                         await injectLink({ rel: 'text/stylesheet', href: `${domain}/${version}/css/chunk-common.css` });
                         await injectLink({ rel: 'text/stylesheet', href: `${domain}/${version}/css/live.css` });
                         await injectScript({ type: 'text/javascript', src: `${domain}/${version}/js/live.js` });
+                        break;
+                    case '/html/add-live.html':
+                    case '/live/addLive.htm':
+                        await injectLink({ rel: 'text/stylesheet', href: `${domain}/${version}/css/chunk-common.css` });
+                        await injectLink({ rel: 'text/stylesheet', href: `${domain}/${version}/css/add-live.css` });
+                        await injectScript({ type: 'text/javascript', src: `${domain}/${version}/js/add-live.js` });
                         break;
                     default:
                         break;

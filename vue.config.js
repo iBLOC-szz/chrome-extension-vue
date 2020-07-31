@@ -12,7 +12,8 @@ module.exports = {
             main: './src/main.ts',
             background: './src/pages/background.ts',
             popup: './src/pages/popup.ts',
-            live: './src/pages/live.ts'
+            live: './src/pages/live.ts',
+            'add-live': './src/pages/add-live.ts'
         },
         output: {
             jsonpFunction: 'jsonpFunction',
