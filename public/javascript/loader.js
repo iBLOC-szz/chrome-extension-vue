@@ -2,6 +2,12 @@
 
     const init = (domain) => {
 
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+            console.log(request);
+            window.postMessage(request)
+            sendResponse("我收到了你的消息！");
+        });
+
         const injectedScript = document.createElement('script');
 
         injectedScript.setAttribute('type', 'text/javascript');
@@ -19,7 +25,7 @@
             }, 10 * 1000);
         }
     };
-
+    init('https://magnesium.oss-cn-hangzhou.aliyuncs.com/extension-stg')
     // init('https://magnesium.oss-cn-hangzhou.aliyuncs.com/extension')
-    init('http://localhost:8080')
+    // init('http://localhost:8080')
 })();

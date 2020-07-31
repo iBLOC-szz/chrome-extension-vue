@@ -1,7 +1,8 @@
 (() => {
-    const version = '1.0.0';
+    const version = '1.0.1';
+    const domain = 'https://magnesium.oss-cn-hangzhou.aliyuncs.com/extension-stg';
     // const domain = 'https://magnesium.oss-cn-hangzhou.aliyuncs.com/extension';
-    const domain = 'http://localhost:8080'
+    // const domain = 'http://localhost:8080'
 
     const injectScript = (script) => {
 
