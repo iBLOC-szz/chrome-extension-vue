@@ -21,7 +21,7 @@ const announcementModule:Module<AnnouncementStage, Announcement> = {
           state.announcements = localState.announcements
         },
         ADD(state, announcement: Announcement) {
-            let index = state.announcements.findIndex(a => a.content === announcement.content);
+            const index = state.announcements.findIndex(a => a.content === announcement.content);
             if (index === -1) {
                 announcement.id = new Date().getTime();
                 state.announcements.unshift(announcement);
@@ -32,7 +32,7 @@ const announcementModule:Module<AnnouncementStage, Announcement> = {
 
             console.log(announcement);
 
-            let index = state.announcements.findIndex(a => a.id === announcement.id);
+            const index = state.announcements.findIndex(a => a.id === announcement.id);
             if (index > -1) {
                 state.announcements.splice(index, 1);
                 state.announcements.unshift(announcement);
@@ -43,7 +43,7 @@ const announcementModule:Module<AnnouncementStage, Announcement> = {
             localStorage.setItem('ANNOUNCEMENT', JSON.stringify(state))
         },
         DELETE(state, announcement: Announcement) {
-            let index = state.announcements.findIndex(a => a.content === announcement.content);
+            const index = state.announcements.findIndex(a => a.content === announcement.content);
             if (index > -1) {
                 state.announcements.splice(index, 1);
                 localStorage.setItem('ANNOUNCEMENT', JSON.stringify(state))

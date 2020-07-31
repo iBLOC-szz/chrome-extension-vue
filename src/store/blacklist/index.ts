@@ -20,7 +20,7 @@ const blacklistModule: Module<BlacklistStage, Blacklist> = {
     },
     mutations: {
         INIT(state) {
-            let blacklistJsonString = localStorage.getItem('BLACKLIST');
+            const blacklistJsonString = localStorage.getItem('BLACKLIST');
             if (blacklistJsonString) {
                 const blacklistStage: BlacklistStage = JSON.parse(blacklistJsonString);
                 if (blacklistStage) {

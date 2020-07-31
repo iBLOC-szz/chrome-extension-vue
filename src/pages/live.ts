@@ -27,7 +27,7 @@ if (window.location.pathname === '/html/live.html') {
             }
         };
 
-        let liveJsonString = localStorage.getItem('LIVE');
+        const liveJsonString = localStorage.getItem('LIVE');
         if (liveJsonString) {
             const oldLive: any = JSON.parse(liveJsonString);
             if (oldLive.id === live.id) {
