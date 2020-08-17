@@ -5,8 +5,10 @@ process.env.VUE_APP_VERSION = application.version
 
 module.exports = {
     filenameHashing: false,
+
     pages: {
     },
+
     configureWebpack: {
         entry: {
             main: './src/main.ts',
@@ -22,6 +24,17 @@ module.exports = {
             disableHostCheck: true, //  新增该配置项
         },
         plugins: [
-        ]
+        ],
+    },
+
+    css: {
+        sourceMap: true,
+        loaderOptions: {
+            less: {
+                lessOptions: {
+                    javascriptEnabled: true
+                }
+            }
+        }
     }
 }
